@@ -47,8 +47,12 @@ let result1 =
     result 
     |> Seq.max
 
+let resultMin = 
+    result
+    |> Seq.min
+
 let result2 = 
-    (seq {  54 .. 1 .. 930 })
+    (seq {  resultMin .. 1 .. result1 })
     |> Seq.except result
 
 printfn "%A, %A" result1 result2
