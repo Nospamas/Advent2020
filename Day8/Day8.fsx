@@ -4,7 +4,7 @@ open System.Text.RegularExpressions
 open System.Collections.Generic
 open System.Diagnostics
 
-let sw = new Stopwatch()
+let sw = Stopwatch()
 
 sw.Start()
 type Op =
@@ -44,7 +44,7 @@ let rec walkInstruction (lineNumber: int) (acc: int)  =
             let newOp = inputLines.[lineNumber]
             visited.[lineNumber] <- true
             match newOp with
-            | Nop(x) -> walkInstruction (lineNumber+1) acc
+            | Nop(_) -> walkInstruction (lineNumber+1) acc
             | Jmp(x) -> walkInstruction (lineNumber+x) acc
             | Acc(x) -> walkInstruction (lineNumber+1) (acc+x)
 
