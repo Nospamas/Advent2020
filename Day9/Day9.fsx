@@ -4,7 +4,7 @@ open System.Text.RegularExpressions
 open System.Collections.Generic
 open System.Diagnostics
 
-let sw = new Stopwatch()
+let sw = Stopwatch()
 
 sw.Start()
 
@@ -47,7 +47,6 @@ let rec findSet (target: int64) (currentIndex: int) =
     if not matchedTarget then
         (findSet target (currentIndex+1))
     else 
-        printfn "%A" (inputLines.[startI..endI] |> Seq.sum)
         let min = 
             inputLines.[startI..endI]
             |> Seq.min
