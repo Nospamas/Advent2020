@@ -68,7 +68,9 @@ baseDict.Add(maxJolt+3, 1L)
 
 let resultDict = 
     input2
+    // look ahead 3 for each value
     |> Seq.windowed 4
+    // return a our target joltage and any valid connections
     |> Seq.map (fun values ->
         let current = values.[0]
         let vals = 
@@ -76,8 +78,10 @@ let resultDict =
             |> Seq.filter (withinRange current)
         (current, vals)
     )
-    // start from the top so we can use our seed device 
+    // start from the top voltage so we can use our seed device connection
     |> Seq.rev
+    // process through each connection and count the total number of connections available based
+    // on the sum of connectable voltages
     |> Seq.fold processConnections (baseDict)
 
 let result2 = resultDict.[0]
