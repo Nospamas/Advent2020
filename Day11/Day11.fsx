@@ -176,5 +176,6 @@ let resultFerry2 = (getUnchangedState2 inputLines)
 let result1 = (countFerry resultFerry)
 
 let result2 = (countFerry resultFerry2)
-    
+
+#time
 printfn "%A, %A" result1 result2
