@@ -3,7 +3,6 @@ open System
 open System.Collections
 open System.Text.RegularExpressions
 open System.Collections.Generic
-open System.Diagnostics
 
 type Command =
     | Mask of string
@@ -85,14 +84,13 @@ let runCommands (input: Command array) =
 
     inner 0 "" (Dictionary<int64, int64>()) input
 
-let foldMask (permutationBinary: string) (offset, acc) c =
-   //printfn "%A" permutationBinary
-   match c with
+let foldMask (permutationBinary: string) (offset, acc) =
+   function
    | '0' -> offset, (acc@['0'])
    | '1' -> offset, (acc@['1'])
    | 'X' ->
        (offset+1), (acc@[permutationBinary.[offset]])
-   | _ -> failwithf "Unexpected memory bit: %A" c
+   | x -> failwithf "Unexpected memory bit: %A" x
    
 
 let getPermutation (mask: string) (permutationBinary: string) =
@@ -135,7 +133,8 @@ let runCommands2 (input: Command array) =
             match lines.[line] with
             | Mask (x) -> inner (line + 1) x mValues lines
             | Memory (mAddress, mValue) ->
-                let maskedAddress =
+                printfn "%d:b" mAddress
+                let maskedAddress = 
                     (pad36 (intToBinary mAddress))
                     |> Seq.mapi (fun index bit ->
                         match currentMask.[index] with
