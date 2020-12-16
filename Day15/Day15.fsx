@@ -3,7 +3,7 @@ open System
 open System.Collections
 open System.Text.RegularExpressions
 open System.Collections.Generic
-
+#time
 let input = 
     File.ReadAllText("./input.txt").Split(',')
     |> Seq.rev
@@ -28,7 +28,7 @@ let walkNumbers (stopAt: int) (input: int list) =
 
     inner stopAt ((Seq.length input)) input
 
-let getDictionaryOrDefault (memos: Dictionary<int, int>) (value) =
+let inline getDictionaryOrDefault (memos: Dictionary<int, int>) (value) =
     match memos.TryGetValue(value) with
     | true, x -> x+1
     | false, _ -> -1
